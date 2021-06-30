@@ -145,7 +145,7 @@ def format_time(seconds):
         f = '0ms'
     return f
 
-def display_misclassified_images(model):
+def display_misclassified_images(model,device):
     print("\n********* Misclassified Images **************\n")
     model.eval()
 
