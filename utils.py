@@ -145,6 +145,11 @@ def format_time(seconds):
         f = '0ms'
     return f
 
+def denormalize(images, means, stds):
+    means = torch.tensor(means).reshape(1, 3, 1, 1)
+    stds = torch.tensor(stds).reshape(1, 3, 1, 1)
+    return images * stds + means
+
 def display_misclassified_images(model,device):
     print("\n********* Misclassified Images **************\n")
     model.eval()
@@ -173,7 +178,7 @@ def display_misclassified_images(model,device):
             fig = plt.figure(figsize=(15, 20))
             for i, idx in enumerate(indexes[:25]):
                 ax = fig.add_subplot(2, 5, i+1)
-                denorm_images = denormalize(data.cpu(), mean, std)
+                denorm_images = denormalize(data.cpu(), [0.4914, 0.4822, 0.4465], [0.2023, 0.1994, 0.2010])
                 ax.imshow(denorm_images[idx].squeeze().permute(1, 2, 0).clamp(0,1))
                 ax.set_title(f"Target = {classes[target[idx].item()]} \n Predicted = {classes[pred[idx].item()]}")
 
