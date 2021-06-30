@@ -174,7 +174,7 @@ def display_misclassified_images(model,device,classes):
             pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
             # Get the indexes of images that are incorrectly classified
             indexes = (pred.view(-1,) != target.view(-1,)).nonzero()
-
+            plt.ion()
             fig = plt.figure(figsize=(15, 20))
             for i, idx in enumerate(indexes[:10]):
                 ax = fig.add_subplot(2, 5, i+1)
