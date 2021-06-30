@@ -22,6 +22,8 @@ parser.add_argument('--lr', default=0.1, type=float, help='learning rate')
 parser.add_argument('--resume', '-r', action='store_true',
                     help='resume from checkpoint')
 parser.add_argument('--no_of_epochs',default=20,type=int, help='no of epochs')
+parser.add_argument('--batch_size',default=128,type=int, help='batch size')
+
 args = parser.parse_args()
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
