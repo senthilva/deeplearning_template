@@ -13,8 +13,7 @@ import torchvision.transforms as transforms
 import os
 import argparse
 
-from models import *
-from .resnet import *
+from models import resnet
 from utils import progress_bar
 
 
