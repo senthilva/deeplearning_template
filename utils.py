@@ -155,7 +155,7 @@ def display_misclassified_images(model):
     
     # dataloader arguments - something you'll fetch these from cmdprmt
     dataloader_args = dict(shuffle=True, batch_size=len(test), 
-                           num_workers=2, pin_memory=True) if cuda else dict(shuffle=True, batch_size=len(test))
+                           num_workers=2, pin_memory=True)
     
     # test dataloader
     testloader = torch.utils.data.DataLoader(test, **dataloader_args)
