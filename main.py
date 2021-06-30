@@ -21,6 +21,7 @@ parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
 parser.add_argument('--lr', default=0.1, type=float, help='learning rate')
 parser.add_argument('--resume', '-r', action='store_true',
                     help='resume from checkpoint')
+parser.add_argument('--no_of_epochs',default=20,type=int, help='no of epochs')
 args = parser.parse_args()
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -139,7 +140,7 @@ def test(epoch):
         best_acc = acc
 
 
-for epoch in range(start_epoch, start_epoch+2):
+for epoch in range(start_epoch, start_epoch+args.no_of_epochs):
     train(epoch)
     test(epoch)
     scheduler.step()
