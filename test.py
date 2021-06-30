@@ -1,1 +1,2 @@
-print('Imported\n')
+def print_test():
+	print('Imported\n')
