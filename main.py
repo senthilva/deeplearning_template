@@ -147,4 +147,4 @@ for epoch in range(start_epoch, start_epoch+args.no_of_epochs):
     test(epoch)
     scheduler.step()
 
-display_misclassified_images(net)
+display_misclassified_images(net,device)
