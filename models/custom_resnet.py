@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 class custom_ResNet(nn.Module):
     def __init__(self,num_classes=10):
         super(custom_ResNet, self).__init__()
@@ -20,43 +21,35 @@ class custom_ResNet(nn.Module):
                 nn.Conv2d(128, 128,
                           kernel_size=1, stride=1, bias=False),
                 nn.BatchNorm2d(128),
-                F.relu(),
+                nn.ReLU(),
                 nn.Conv2d(128, 128,
                           kernel_size=1, stride=1, bias=False),
                 nn.BatchNorm2d(128),
-                F.relu(),
+                nn.ReLU(),
             )
         self.layer2 = nn.Sequential(
                 nn.Conv2d(128, 256,
                           kernel_size=3, stride=1, padding=1,bias=False),
                 nn.MaxPool2d(2, stride=2),
-                nn.BatchNorm2d(128)
+                nn.BatchNorm2d(256)
             )
         self.layer3 = nn.Sequential(
                 nn.Conv2d(256, 512,
                           kernel_size=3, stride=1, padding=1,bias=False),
                 nn.MaxPool2d(2, stride=2),
-                nn.BatchNorm2d(128)
+                nn.BatchNorm2d(512)
             )
         self.resblk2 = nn.Sequential(
                 nn.Conv2d(512, 512,
                           kernel_size=1, stride=1, bias=False),
-                nn.BatchNorm2d(128),
-                F.relu(),
+                nn.BatchNorm2d(512),
+                nn.ReLU(),
                 nn.Conv2d(512, 512,
                           kernel_size=1, stride=1, bias=False),
-                nn.BatchNorm2d(128),
-                F.relu(),
+                nn.BatchNorm2d(512),
+               nn.ReLU(),
             )
-        self.linear = nn.Linear(512*block.expansion, num_classes)
-
-    def _make_layer(self, block, planes, num_blocks, stride):
-        strides = [stride] + [1]*(num_blocks-1)
-        layers = []
-        for stride in strides:
-            layers.append(block(self.in_planes, planes, stride))
-            self.in_planes = planes * block.expansion
-        return nn.Sequential(*layers)
+        self.linear = nn.Linear(512, num_classes)
 
     def forward(self, x):
         out = F.relu(self.bn1(self.conv1(x))) # prep layer
@@ -69,11 +62,11 @@ class custom_ResNet(nn.Module):
         out = R2 + X
         out = F.max_pool2d(out, 4)
         out = out.view(out.size(0), -1)
-        out = F.softmax(self.linear(out))
+        print(out.shape)
+        out = F.softmax(self.linear(out),dim = 1)
         return out
 
 
 def cust_ResNet18():
     return custom_ResNet()
-
 
