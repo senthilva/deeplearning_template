@@ -62,7 +62,6 @@ class custom_ResNet(nn.Module):
         out = R2 + X
         out = F.max_pool2d(out, 4)
         out = out.view(out.size(0), -1)
-        print(out.shape)
         out = F.softmax(self.linear(out),dim = 1)
         return out
 
