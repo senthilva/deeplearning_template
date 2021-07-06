@@ -80,7 +80,10 @@ if args.resume:
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=args.lr,
                       momentum=0.9, weight_decay=5e-4)
-scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
+scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=1,
+                                                pct_start = 0.2
+                                                steps_per_epoch=len(data_loader), 
+                                                epochs=24)
 
 
 # Training
@@ -96,8 +99,8 @@ def train(epoch):
         outputs = net(inputs)
         loss = criterion(outputs, targets)
         loss.backward()
-        optimizer.step()
-
+        #optimizer.step()
+        scheduler.step()
         train_loss += loss.item()
         _, predicted = outputs.max(1)
         total += targets.size(0)
