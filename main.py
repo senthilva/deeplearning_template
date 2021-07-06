@@ -99,7 +99,7 @@ def train(epoch):
         outputs = net(inputs)
         loss = criterion(outputs, targets)
         loss.backward()
-        #optimizer.step()
+        optimizer.step()
         scheduler.step()
         train_loss += loss.item()
         _, predicted = outputs.max(1)
