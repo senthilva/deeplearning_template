@@ -39,9 +39,10 @@ def transform_test():
 def transform_trainv2():
     return A.Compose(
     [
-        A.CropAndPad(4,(-0.1,0.3),pad_mode=0, pad_cval=0, pad_cval_mask=0, 
-                     keep_size=True, sample_independently=True, interpolation=1, 
-                     always_apply=False, p=0.5),
+        A.CropAndPad(4,pad_mode=0, pad_cval=0, pad_cval_mask=0, 
+                     keep_size=False, sample_independently=True, interpolation=1, 
+                     always_apply=True),
+        A.RandomCrop(32,32,always_apply=True),
         A.HorizontalFlip(p=0.5),
         A.CoarseDropout(max_holes = 1, max_height=8, max_width=8, min_holes = 1, min_height=8, min_width=8, fill_value=0.5, mask_fill_value = None),
         A.Normalize((0.4914, 0.4822, 0.4465), 
