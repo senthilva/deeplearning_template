@@ -33,7 +33,7 @@ def transform_train():
 def transform_test():
     return transforms.Compose([
                 transforms.ToTensor(),
-                transforms.Normalize((0.4914, 0.4822, 0.4465), 
+                transforms.Normalize((0.4914, 0.4822, 0.4465), ])
 
 def transform_trainv2():
     return A.Compose(
@@ -44,16 +44,15 @@ def transform_trainv2():
         A.Normalize((0.4914, 0.4822, 0.4465), 
                     (0.2023, 0.1994, 0.2010)),
         ToTensorV2(),
-    ]
-    )
+    ])
+      
 def transform_testv2():
     return A.Compose(
     [
         A.Normalize((0.4914, 0.4822, 0.4465), 
                     (0.2023, 0.1994, 0.2010)),
         ToTensorV2(),
-    ]
-    )
+    ])
   
 def get_mean_and_std(dataset):
     '''Compute the mean and std value of dataset.'''
