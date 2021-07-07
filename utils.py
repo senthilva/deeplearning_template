@@ -20,6 +20,8 @@ import torchvision
 import torchvision.transforms as transforms
 
 import matplotlib.pyplot as plt
+import albumentations as A
+from albumentations.pytorch import ToTensorV2
 
 def transform_train():
     return transforms.Compose([
@@ -32,8 +34,27 @@ def transform_test():
     return transforms.Compose([
                 transforms.ToTensor(),
                 transforms.Normalize((0.4914, 0.4822, 0.4465), 
-                                     (0.2023, 0.1994, 0.2010)),])
 
+def transform_trainv2():
+    return A.Compose(
+    [
+        A.ShiftScaleRotate(shift_limit=0.05, scale_limit=0.05, rotate_limit=5, p=0.5),
+        A.HorizontalFlip(p=0.5),
+        A.CoarseDropout(max_holes = 1, max_height=12, max_width=12, min_holes = 1, min_height=1, min_width=1, fill_value=0.5, mask_fill_value = None),
+        A.Normalize((0.4914, 0.4822, 0.4465), 
+                    (0.2023, 0.1994, 0.2010)),
+        ToTensorV2(),
+    ]
+    )
+def transform_testv2():
+    return A.Compose(
+    [
+        A.Normalize((0.4914, 0.4822, 0.4465), 
+                    (0.2023, 0.1994, 0.2010)),
+        ToTensorV2(),
+    ]
+    )
+  
 def get_mean_and_std(dataset):
     '''Compute the mean and std value of dataset.'''
     dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=True, num_workers=2)
