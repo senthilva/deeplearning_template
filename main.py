@@ -33,6 +33,30 @@ start_epoch = 0  # start from epoch 0 or last checkpoint epoch
 # Data
 print('==> Preparing data..')
 
+class Cifar10SearchDataset(torchvision.datasets.CIFAR10):
+    def __init__(self, root="~/data/cifar10", train=True, download=True, transform=None):
+        super().__init__(root=root, train=train, download=download, transform=transform)
+
+    def __getitem__(self, index):
+        image, label = self.data[index], self.targets[index]
+
+        if self.transform is not None:
+            transformed = self.transform(image=image)
+            image = transformed["image"]
+
+        return image, label
+
+trainset = Cifar10SearchDataset(root='./data', train=True,
+                                        download=True, transform=transform_trainv2())
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size,
+                                          shuffle=True, num_workers=2)
+
+testset = Cifar10SearchDataset(root='./data', train=False,
+                                       download=True,transform = transform_testv2())
+testloader =torch.utils.data.DataLoader(testset, batch_size=args.batch_size,
+                                         shuffle=False, num_workers=2)
+
+'''
 trainset = torchvision.datasets.CIFAR10(
     root='./data', train=True, download=True, transform=transform_train())
 trainloader = torch.utils.data.DataLoader(
@@ -42,6 +66,7 @@ testset = torchvision.datasets.CIFAR10(
     root='./data', train=False, download=True, transform=transform_test())
 testloader = torch.utils.data.DataLoader(
     testset, batch_size=args.batch_size, shuffle=False, num_workers=2)
+'''
 
 classes = ('plane', 'car', 'bird', 'cat', 'deer',
            'dog', 'frog', 'horse', 'ship', 'truck')
@@ -150,4 +175,4 @@ for epoch in range(start_epoch, start_epoch+args.no_of_epochs):
     test(epoch)
     scheduler.step()
 
-display_misclassified_images(net,device,list(classes))
+#display_misclassified_images(net,device,list(classes))
