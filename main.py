@@ -103,7 +103,8 @@ if args.resume:
     start_epoch = checkpoint['epoch']
 
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.SGD(net.parameters(), lr=args.lr,momentum=0.9)
+optimizer = optim.SGD(net.parameters(), lr=args.lr,
+                      momentum=0.9,weight_decay=1e-4)
 scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=1,
                                                 pct_start = 0.2,
                                                 steps_per_epoch=len(trainloader),
