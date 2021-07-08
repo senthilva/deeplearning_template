@@ -174,5 +174,5 @@ for epoch in range(start_epoch, start_epoch+args.no_of_epochs):
     train(epoch)
     test(epoch)
     scheduler.step()
-
+    print(f' Learning Rate : {scheduler.get_last_lr()}')
 #display_misclassified_images(net,device,list(classes))
