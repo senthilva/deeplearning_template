@@ -107,9 +107,7 @@ optimizer = optim.SGD(net.parameters(), lr=args.lr,momentum=0.9)
 scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=1,
                                                 pct_start = 0.2,
                                                 steps_per_epoch=len(trainloader),
-                                                epochs=25,
-                                                verbose = True)
-
+                                                epochs=25)
 
 # Training
 def train(epoch):
