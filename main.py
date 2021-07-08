@@ -105,7 +105,7 @@ if args.resume:
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=args.lr,
                       momentum=0.9,weight_decay=5e-4)
-scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=0.08,
+scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=0.12,
                                                 pct_start = 0.2,
                                                 steps_per_epoch=len(trainloader),
                                                 epochs=25)
