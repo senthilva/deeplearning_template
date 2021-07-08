@@ -44,7 +44,7 @@ def transform_trainv2():
                      always_apply=True),
         A.RandomCrop(32,32,always_apply=True),
         A.HorizontalFlip(p=0.5),
-        A.CoarseDropout(max_holes = 1, max_height=8, max_width=8, min_holes = 1, min_height=8, min_width=8, fill_value=0.5, mask_fill_value = None),
+        A.CoarseDropout(max_holes = 1, max_height=8, max_width=8, min_holes = 1, min_height=1, min_width=1, fill_value=0.5, mask_fill_value = None),
         A.Normalize((0.4914, 0.4822, 0.4465), 
                     (0.2023, 0.1994, 0.2010)),
         ToTensorV2(),
