@@ -18,7 +18,7 @@ from utils import *
 
 
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
-parser.add_argument('--lr', default=0.0001, type=float, help='learning rate')
+parser.add_argument('--lr', default=0.001, type=float, help='learning rate')
 parser.add_argument('--resume', '-r', action='store_true',
                     help='resume from checkpoint')
 parser.add_argument('--no_of_epochs',default=20,type=int, help='no of epochs')
@@ -105,10 +105,10 @@ if args.resume:
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=args.lr,
                       momentum=0.9,weight_decay=5e-4)
-scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=0.5,
+scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=0.4,
                                                 pct_start = 0.18,
                                                 steps_per_epoch=len(trainloader),
-                                                epochs=30)
+                                                epochs=26)
 
 # Training
 def train(epoch):
