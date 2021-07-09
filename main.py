@@ -105,9 +105,9 @@ if args.resume:
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=args.lr,
                       momentum=0.9)
-scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=1,
+scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=0.4,
                                                 pct_start = 0.5,
-                                                total_steps = 500)
+                                                total_steps = 3000)
 
 # Training
 def train(epoch):
